@@ -23,7 +23,7 @@ public class GroundLooperScript : MonoBehaviour
     {
         bridge = GameObject.Find("Bridge");
         bridge.SetActive(false);
-        int[] tempArray = { Boat.Propability, Helicopter.Propability, Airplane.Propability, FuelTank.Propability };
+        int[] tempArray = { Boat.Propability, RedEnemy.Propability, SpacePlane.Propability, FuelTank.Propability };
         propabilityArray = new int[100];
         int i = 0;
         int j = 0;
@@ -125,12 +125,12 @@ public class GroundLooperScript : MonoBehaviour
             sizex = currentLevel[i][0] * diffx;
             drawGrass(posx, posy, sizex, sizey);
 
-            //if (i > 1) generateEnemiesOrFuel(currentLevel, i, boxPosition.x, posy, diffx);
+            if (i > 1) generateEnemiesOrFuel(currentLevel, i, boxPosition.x, posy, diffx);
 
-            //if (random.Next(0, 8) == 0)
-            //{
-            //    if (i > 1 && (currentLevel[i][0] >= 3 || currentLevel[i][1] != 0)) drawHouse(currentLevel[i][0], currentLevel[i][1], boxPosition.x, posy, diffx);
-            //}
+            if (random.Next(0, 3) == 0)
+            {
+                if (i > 1 && (currentLevel[i][0] >= 3 || currentLevel[i][1] != 0)) drawRocks(currentLevel[i][0], currentLevel[i][1], boxPosition.x, posy, diffx);
+            }
 
             //TRIANGLES CALCULATIONS
             if (i < currentLevel.Length - 1)
@@ -512,19 +512,19 @@ public class GroundLooperScript : MonoBehaviour
             {
                 case (0):
                     {
-                        Boat boat = new Boat(100, x, y, -200);
+                        //Boat boat = new Boat(100, x, y, -200);
                         break;
                     }
                 case (1):
                     {
-                        Helicopter helicopter = new Helicopter(100, x, y, 250);
+                        RedEnemy redEnemy = new RedEnemy(100, x, y, 250);
                         break;
                     }
                 case (2):
                     {
                         int rSide = random.Next(-1, 2);
                         if (rSide == 0) rSide = -1;
-                        Airplane airplane = new Airplane(100, 1.90f * rSide, y, 500 * rSide * -1);
+                        SpacePlane spacePlane = new SpacePlane(100, 10.90f * rSide, y, 500 * rSide * -1);
                         break;
 
                     }
@@ -537,21 +537,23 @@ public class GroundLooperScript : MonoBehaviour
         }
     }
 
-    private void drawHouse(int c1, int c2, float posx, float posy, float diffx)
+    private void drawRocks(int c1, int c2, float posx, float posy, float diffx)
     {
         float x = 0.0f, y;
         y = posy;
-        GameObject house = GameObject.Instantiate(Resources.Load("Prefabs/HousePrefab", typeof(GameObject))) as GameObject;
+        int rand = UnityEngine.Random.Range(1, 4);
+        string patch = "Prefabs/Rock" + rand.ToString() + "Prefab";
+        GameObject rock = GameObject.Instantiate(Resources.Load(patch, typeof(GameObject))) as GameObject;
         if (c2 == 0)
         {
             //choose side
             if (random.Next(0, 2) == 0)
             {
-                x = posx - diffx * ((scale / 2) - c1) - 3 * (house.GetComponent<Renderer>().bounds.size.x / 4);
+                x = posx - diffx * ((scale / 2) - c1) - 3 * (rock.GetComponent<Renderer>().bounds.size.x / 4);
             }
             else
             {
-                x = posx + diffx * ((scale / 2) - c1) + 3 * (house.GetComponent<Renderer>().bounds.size.x / 4);
+                x = posx + diffx * ((scale / 2) - c1) + 3 * (rock.GetComponent<Renderer>().bounds.size.x / 4);
             }
         }
         else
@@ -560,9 +562,9 @@ public class GroundLooperScript : MonoBehaviour
         }
         if (random.Next(0, 2) == 0)
         {
-            house.transform.RotateAround(transform.position, transform.up, 180f);
+            rock.transform.RotateAround(transform.position, transform.up, 180f);
         }
-        house.transform.position = new Vector3(x, y);
+        rock.transform.position = new Vector3(x, y);
     }
 
     //CALL THIS AFTER BRIDGE DESTROYED
