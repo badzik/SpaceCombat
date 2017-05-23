@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Assets
 {
-    class Boat : Enemy
+    class Tank : Enemy
     {
         public static int Propability = 35;
         public static int score = 30;
-        public Boat(float health,float posx,float posy,int speed)
+        public Tank(float health,float posx,float posy,int speed)
         {
             this.Health = health;
-            this.GameObject= GameObject.Instantiate(Resources.Load("Prefabs/BoatPrefab", typeof(GameObject))) as GameObject;
+            this.GameObject= GameObject.Instantiate(Resources.Load("Prefabs/TankPrefab", typeof(GameObject))) as GameObject;
             this.GameObject.transform.position = new Vector2(posx, posy);
             this.IsFlyingOver = false;
             this.Speed = speed;

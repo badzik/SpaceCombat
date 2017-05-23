@@ -119,26 +119,17 @@ public class MainScript : MonoBehaviour
         {
             e.GameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
         }
-        
+
     }
 
     public static void KillEnemy(Enemy enemy)
     {
         Player.Points += enemy.Score;
-        if (enemy.GameObject.name != "BoatPrefab(Clone)")
-        {
-            GameObject smallExplosion = GameObject.Instantiate(Resources.Load("Prefabs/SmallExplosionPrefab", typeof(GameObject))) as GameObject;
-            smallExplosion.transform.position = new Vector2(enemy.GameObject.transform.position.x, enemy.GameObject.transform.position.y);
-            Destroy(smallExplosion, 1);
-        }
-        else
-        {
-            GameObject bigExplosion = GameObject.Instantiate(Resources.Load("Prefabs/BigExplosionPrefab", typeof(GameObject))) as GameObject;
-            bigExplosion.transform.position = new Vector2(enemy.GameObject.transform.position.x, enemy.GameObject.transform.position.y);
-            Destroy(bigExplosion, 1);
-        }
-            Destroy(enemy.GameObject);
-            enemies.Remove(enemy);
+        GameObject Explosion = GameObject.Instantiate(Resources.Load("Prefabs/SmallExplosionPrefab", typeof(GameObject))) as GameObject;
+        Explosion.transform.position = new Vector2(enemy.GameObject.transform.position.x, enemy.GameObject.transform.position.y);
+        Destroy(Explosion, 0.8f);
+        Destroy(enemy.GameObject);
+        enemies.Remove(enemy);
     }
 
     public void ResetLevel()

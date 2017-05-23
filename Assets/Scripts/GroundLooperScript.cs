@@ -23,7 +23,7 @@ public class GroundLooperScript : MonoBehaviour
     {
         bridge = GameObject.Find("Bridge");
         bridge.SetActive(false);
-        int[] tempArray = { Boat.Propability, RedEnemy.Propability, SpacePlane.Propability, FuelTank.Propability };
+        int[] tempArray = { Tank.Propability, RedEnemy.Propability, SpacePlane.Propability, FuelTank.Propability };
         propabilityArray = new int[100];
         int i = 0;
         int j = 0;
@@ -499,7 +499,7 @@ public class GroundLooperScript : MonoBehaviour
             r = random.Next(0, 100);
             c = propabilityArray[r];
             
-            //statement for preventing generating boats in tight corridors
+            //statement for preventing generating tanks in tight corridors
             if (lvl[current][1]>=9 && c == 0)
             {
                 do
@@ -512,7 +512,7 @@ public class GroundLooperScript : MonoBehaviour
             {
                 case (0):
                     {
-                        //Boat boat = new Boat(100, x, y, -200);
+                        Tank tank = new Tank(100, x, y, -100);
                         break;
                     }
                 case (1):
@@ -524,7 +524,7 @@ public class GroundLooperScript : MonoBehaviour
                     {
                         int rSide = random.Next(-1, 2);
                         if (rSide == 0) rSide = -1;
-                        SpacePlane spacePlane = new SpacePlane(100, 10.90f * rSide, y, 500 * rSide * -1);
+                        SpacePlane spacePlane = new SpacePlane(100, 12.5f * rSide, y, 500 * rSide * -1);
                         break;
 
                     }
