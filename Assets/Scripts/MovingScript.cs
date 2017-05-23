@@ -35,7 +35,7 @@ public class MovingScript : MonoBehaviour
         {
             explosionSound = sounds[0];
             flightSound = sounds[1];
-            alert = sounds[3];
+            alert = sounds[2];
             normalFlightSoundPitch = flightSound.pitch;
             minFlightSoundPitch = flightSound.pitch - 0.2f;
             maxFlightSoundPitch = flightSound.pitch + 0.2f;

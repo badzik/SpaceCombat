@@ -9,11 +9,17 @@ public class ShootingScript : MonoBehaviour
     private Rect topLeft;
     private Rect topRight;
     private Rect bottomRight;
+    private GameObject normalSound;
+    private GameObject rocketSound;
+    private GameObject laserSound;
 
     // Use this for initialization
     void Start()
     {
         shootCooldown = 0;
+        normalSound = GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
+        rocketSound= GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
+        laserSound = GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
         topLeft = new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2);
         topRight = new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height / 2);
         bottomRight = new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2);
@@ -32,9 +38,7 @@ public class ShootingScript : MonoBehaviour
                 {
                     NormalMissile nm = new NormalMissile(100);
                     shootCooldown = nm.CoolDown;
-                    AudioSource[] sounds = GetComponents<AudioSource>();
-                    var shot = sounds[2];
-                     shot.Play();
+                    normalSound.GetComponent<AudioSource>().Play();
                 }
 
             }

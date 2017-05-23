@@ -422,7 +422,7 @@ public class GroundLooperScript : MonoBehaviour
 
     private void generateEnemiesOrFuel(int[][] lvl, int current, float posx, float posy, float diffx)
     {
-        //0.35f longest item size
+        //1.85f longest item size
         int propability = 3; //propability of generate item
         float x, y;
         int r, c;
@@ -440,13 +440,13 @@ public class GroundLooperScript : MonoBehaviour
                 diff = Math.Max(diff1, diff2);
                 if (diff > 1)
                 {
-                    x1 = posx - diffx * ((scale / 2) - lvl[current][0]) + (0.35f * diff);
-                    x2 = posx + diffx * ((scale / 2) - lvl[current][0]) - (0.35f * diff);
+                    x1 = posx - diffx * ((scale / 2) - lvl[current][0]) + (1.85f * diff);
+                    x2 = posx + diffx * ((scale / 2) - lvl[current][0]) - (1.85f * diff);
                 }
                 else
                 {
-                    x1 = posx - diffx * ((scale / 2) - lvl[current][0]) + (0.35f / 2);
-                    x2 = posx + diffx * ((scale / 2) - lvl[current][0]) - (0.35f / 2);
+                    x1 = posx - diffx * ((scale / 2) - lvl[current][0]) + (1.85f / 2);
+                    x2 = posx + diffx * ((scale / 2) - lvl[current][0]) - (1.85f / 2);
                 }
                 x = (float)random.NextDouble() * (x2 - x1) + x1;
             }
@@ -462,22 +462,22 @@ public class GroundLooperScript : MonoBehaviour
                     {
                         if (random.Next(0, 2) == 0)
                         {
-                            x = posx - diffx * ((scale / 2) - lvl[current][0]) + 0.35f;
+                            x = posx - diffx * ((scale / 2) - lvl[current][0]) + 1.85f;
                         }
                         else
                         {
-                            x = posx + diffx * ((scale / 2) - lvl[current][0]) - 0.35f;
+                            x = posx + diffx * ((scale / 2) - lvl[current][0]) - 1.85f;
                         }
                     }
                     else
                     {
                         if (random.Next(0, 2) == 0)
                         {
-                            x = posx - ((diffx * lvl[current][1]) / 2.0f) - (diff * 2 * (0.35f / 3));
+                            x = posx - ((diffx * lvl[current][1]) / 2.0f) - (diff * 2 * (1.85f / 3));
                         }
                         else
                         {
-                            x = posx + ((diffx * lvl[current][1]) / 2.0f) + (diff * 2 * (0.35f / 3));
+                            x = posx + ((diffx * lvl[current][1]) / 2.0f) + (diff * 2 * (1.85f / 3));
                         }
                     }
                 }
@@ -485,11 +485,11 @@ public class GroundLooperScript : MonoBehaviour
                 {
                     if (random.Next(0, 2) == 0)
                     {
-                        x = posx - ((diffx * lvl[current][1]) / 2.0f) - (0.35f / 2);
+                        x = posx - ((diffx * lvl[current][1]) / 2.0f) - (1.85f / 2);
                     }
                     else
                     {
-                        x = posx + ((diffx * lvl[current][1]) / 2.0f) + (0.35f / 2);
+                        x = posx + ((diffx * lvl[current][1]) / 2.0f) + (1.85f / 2);
                     }
                 }
 
