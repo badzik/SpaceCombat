@@ -48,7 +48,7 @@ public class MainScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        //GameObject.FindGameObjectWithTag("Score").GetComponent<Text>().text = Player.Points.ToString();
+        GameObject.FindGameObjectWithTag("Score").GetComponent<Text>().text = Player.Points.ToString();
         //if (BridgeScript.bridgeDestroyed)
         //{
         //    if (flashingCounter <= flashingTime)
