@@ -40,5 +40,9 @@ public class MissileScript : MonoBehaviour
             MainScript.missiles.Remove(missilie);
             Destroy(missilie.GameObject);
         }
+        if (missilie.GameObject.name == "LaserMissilePrefab(Clone)")
+        {
+            //probably lasser don't get more options but...
+        }
     }
 }

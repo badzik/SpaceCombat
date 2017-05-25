@@ -245,7 +245,7 @@ public class GroundLooperScript : MonoBehaviour
                 MeshFilter trFilter = tr1.AddComponent<MeshFilter>();
                 MeshRenderer trRenderer = tr1.AddComponent<MeshRenderer>();
                 trRenderer.sortingLayerName = "Background";
-                if(color==0)trRenderer.material = Resources.Load("Materials/Grass", typeof(Material)) as Material;
+                if (color == 0) trRenderer.material = Resources.Load("Materials/Grass", typeof(Material)) as Material;
                 else trRenderer.material = Resources.Load("Materials/DarkGrass", typeof(Material)) as Material;
                 Mesh trMesh = tr1.GetComponent<MeshFilter>().mesh;
                 trMesh.vertices = new Vector3[3] { new Vector3(t[0].x, t[0].y), new Vector3(t[1].x, t[1].y), new Vector3(t[2].x, t[2].y) };
@@ -498,9 +498,9 @@ public class GroundLooperScript : MonoBehaviour
             //chose what type of item should be spawned
             r = random.Next(0, 100);
             c = propabilityArray[r];
-            
+
             //statement for preventing generating tanks in tight corridors
-            if (lvl[current][1]>=9 && c == 0)
+            if (lvl[current][1] >= 9 && c == 0)
             {
                 do
                 {
@@ -541,8 +541,9 @@ public class GroundLooperScript : MonoBehaviour
     {
         float x = 0.0f, y;
         y = posy;
-        int rand = UnityEngine.Random.Range(1, 4);
-        string patch = "Prefabs/Rock" + rand.ToString() + "Prefab";
+        string patch = null;
+        int rand = UnityEngine.Random.Range(1, 5);
+        patch = "Prefabs/Rock" + rand.ToString() + "Prefab";
         GameObject rock = GameObject.Instantiate(Resources.Load(patch, typeof(GameObject))) as GameObject;
         if (c2 == 0)
         {
