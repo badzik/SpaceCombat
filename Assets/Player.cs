@@ -16,6 +16,7 @@ namespace Assets
         private bool destroyed;
         private int points;
         private int level;
+        private int choosenMissile;
 
         public Player(Rigidbody2D playerBody)
         {
@@ -27,6 +28,7 @@ namespace Assets
             destroyed = false;
             points = 0;
             level = 1;
+            choosenMissile = 0;
         }
 
         internal void UpdateBoxCollider()
@@ -120,6 +122,24 @@ namespace Assets
             set
             {
                 level = value;
+            }
+        }
+
+        public int ChoosenMissile
+        {
+            get
+            {
+                return choosenMissile;
+            }
+            set
+            {
+                if(value>=0 && value<3)
+                {
+                    choosenMissile = value;
+                }else
+                {
+                    choosenMissile = 0;
+                }
             }
         }
 

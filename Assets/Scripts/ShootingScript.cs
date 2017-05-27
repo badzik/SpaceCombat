@@ -28,25 +28,38 @@ public class ShootingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && shootCooldown <= 0) //for keyboard shooting
-        //if (Input.touchCount > 0 && shootCooldown <= 0 && !MainScript.Player.Destroyed && !MainScript.start)
+        //if(Input.GetButtonDown("Fire1") && shootCooldown <= 0) //for keyboard shooting
+        if (Input.touchCount > 0 && shootCooldown <= 0 && !MainScript.Player.Destroyed /*&& !MainScript.start*/)
         {
-            //for (int i = 0; i < Input.touchCount; i++)
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                //var touchPos = Input.GetTouch(i).position;
-                //if (Input.GetTouch(i).phase == TouchPhase.Began && (topLeft.Contains(touchPos) || topRight.Contains(touchPos) || bottomRight.Contains(touchPos)))
-                //{
-                //    NormalMissile nm = new NormalMissile(100);
-                //    shootCooldown = nm.CoolDown;
-                //    normalSound.GetComponent<AudioSource>().Play();
-                //}
-
+                var touchPos = Input.GetTouch(i).position;
+                if (Input.GetTouch(i).phase == TouchPhase.Began && (topLeft.Contains(touchPos) || topRight.Contains(touchPos) || bottomRight.Contains(touchPos)))
                 {
-                    LaserMissile lm = new LaserMissile(130);
-                    shootCooldown = lm.CoolDown;
-                    laserSound.GetComponent<AudioSource>().Play();
-                }
+                    switch(MainScript.Player.ChoosenMissile)
+                    {
+                        case (0):
+                            {
+                                NormalMissile nm = new NormalMissile(100);
+                                shootCooldown = nm.CoolDown;
+                                normalSound.GetComponent<AudioSource>().Play();
+                                break;
+                            }
+                        case (1):
+                            {
+                                //need to add rocket missile prefab first
+                                break;
+                            }
+                        case (2):
+                            {
+                                LaserMissile lm = new LaserMissile(130);
+                                shootCooldown = lm.CoolDown;
+                                laserSound.GetComponent<AudioSource>().Play();
+                                break;
+                            }
+                    }
 
+                }
             }
         }
     }
