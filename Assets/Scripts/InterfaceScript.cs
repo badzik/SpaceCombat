@@ -56,25 +56,25 @@ namespace Assets.Scripts
             GameObject rocketBox = GameObject.FindGameObjectWithTag("RocketMissile");
             GameObject laserBox = GameObject.FindGameObjectWithTag("LaserMissile");
 
-            normalBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/normalMissileBox", typeof(Sprite)) as Sprite;
-            rocketBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/rocketMissileBox", typeof(Sprite)) as Sprite;
-            laserBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/laserMissileBox", typeof(Sprite)) as Sprite;
+            normalBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/WeaponSelect/normalMissileBox", typeof(Sprite)) as Sprite;
+            rocketBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/WeaponSelect/rocketMissileBox", typeof(Sprite)) as Sprite;
+            laserBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/WeaponSelect/laserMissileBox", typeof(Sprite)) as Sprite;
 
             switch(weapon)
             {
                 case (0):
                     {
-                        normalBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/normalMissileChoosen", typeof(Sprite)) as Sprite;
+                        normalBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/WeaponSelect/normalMissileChoosen", typeof(Sprite)) as Sprite;
                         break;
                     }
                 case (1):
                     {
-                        rocketBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/rocketMissileChoosen", typeof(Sprite)) as Sprite;
+                        rocketBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/WeaponSelect/rocketMissileChoosen", typeof(Sprite)) as Sprite;
                         break;
                     }
                 case (2):
                     {
-                        laserBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/laserMissileChoosen", typeof(Sprite)) as Sprite;
+                        laserBox.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/WeaponSelect/laserMissileChoosen", typeof(Sprite)) as Sprite;
                         break;
                     }
             }
