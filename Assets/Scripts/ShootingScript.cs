@@ -47,7 +47,9 @@ public class ShootingScript : MonoBehaviour
                             }
                         case (1):
                             {
-                                //need to add rocket missile prefab first
+                                RocketMissile nm = new RocketMissile(200);
+                                shootCooldown = nm.CoolDown;
+                                normalSound.GetComponent<AudioSource>().Play();
                                 break;
                             }
                         case (2):

@@ -13,5 +13,13 @@ namespace Assets
         {
             SceneManager.LoadScene(sceneNumber);    
         }
+
+        public void muteAllSounds(bool istriggered)
+        {
+            if (!istriggered)
+            {
+               AudioListener.pause = true;
+            }
+        }
     }
 }
