@@ -44,5 +44,17 @@ public class MissileScript : MonoBehaviour
         {
             //probably lasser don't get more options but...
         }
+        if (missilie.GameObject.name == "RocketMissilePrefab(Clone)")
+        {
+            RocketExplosion re = new RocketExplosion(250);
+            re.GameObject.transform.position = new Vector2(missilie.GameObject.transform.position.x, missilie.GameObject.transform.position.y);
+            MainScript.missiles.Remove(missilie);
+            Destroy(missilie.GameObject);
+        }
+        if (missilie.GameObject.name == "RocketExplosionPrefab(Clone)")
+        {
+            Destroy(missilie.GameObject, 2.5f);
+            // MainScript.missiles.Remove(re);
+        }
     }
 }

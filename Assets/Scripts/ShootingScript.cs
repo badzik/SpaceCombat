@@ -18,10 +18,10 @@ public class ShootingScript : MonoBehaviour
     {
         shootCooldown = 0;
         normalSound = GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
-        rocketSound= GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
-        laserSound = GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
+        rocketSound= GameObject.Instantiate(Resources.Load("Prefabs/RocketMissileSoundPrefab", typeof(GameObject))) as GameObject;
+        laserSound = GameObject.Instantiate(Resources.Load("Prefabs/LaserMissileSoundPrefab", typeof(GameObject))) as GameObject;
         topLeft = new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2);
-        topRight = new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height / 2);
+        topRight = new Rect(Screen.width / 2, Screen.width /6, Screen.width / 2, Screen.height /4);
         bottomRight = new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2);
     }
 
@@ -47,9 +47,9 @@ public class ShootingScript : MonoBehaviour
                             }
                         case (1):
                             {
-                                RocketMissile nm = new RocketMissile(200);
-                                shootCooldown = nm.CoolDown;
-                                normalSound.GetComponent<AudioSource>().Play();
+                                RocketMissile rm = new RocketMissile(200);
+                                shootCooldown = rm.CoolDown;
+                                rocketSound.GetComponent<AudioSource>().Play();
                                 break;
                             }
                         case (2):
@@ -60,7 +60,6 @@ public class ShootingScript : MonoBehaviour
                                 break;
                             }
                     }
-
                 }
             }
         }
