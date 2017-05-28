@@ -4,17 +4,45 @@ using Assets;
 
 public class EnemyScript : MonoBehaviour
 {
+    private SpriteRenderer myRenderer;
+    private Shader shaderGUItext;
+    private Shader shaderSpritesDefault;
+    private const int whiteTime = 5;
+    private int whiteCounter;
+    private bool isWhite;
+
 
     int probability;
     // Use this for initialization
     void Start()
     {
+        myRenderer = gameObject.GetComponent<SpriteRenderer>();
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default");
+        isWhite = false;
+        whiteCounter = 0;
+
         probability = Random.Range(1 + MainScript.Player.Level, 100 + MainScript.Player.Level);
         if (gameObject.name == "TankPrefab(Clone)")
         {
             gameObject.GetComponent<Animator>().speed = 0;
         }
     }
+
+    void FixedUpdate()
+    {
+        if (isWhite)
+        {
+            whiteCounter++;
+            if (whiteCounter >= whiteTime)
+            {
+                normalSprite();
+                isWhite = false;
+                whiteCounter = 0;
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -56,7 +84,7 @@ public class EnemyScript : MonoBehaviour
                 rotation += rotation;
 
             }
-            if (enemySpeed > 0 && gameObject.name == "RedEnemyrPrefab(Clone)")
+            if (enemySpeed > 0 && gameObject.name == "RedEnemyPrefab(Clone)")
             {
                 rotation += rotation;
             }
@@ -77,11 +105,26 @@ public class EnemyScript : MonoBehaviour
                 float damage = missile.Damage;
                 enemy.Health -= damage;
                 MissileScript.CheckTypeOfMissile(ref missile);
+                whiteSprite();
+                isWhite = true;
             }
             if (enemy.Health <= 0)
             {
                 MainScript.KillEnemy(enemy);
             }
         }
+    }
+
+
+    void whiteSprite()
+    {
+        myRenderer.material.shader = shaderGUItext;
+        myRenderer.color = Color.white;
+    }
+
+    void normalSprite()
+    {
+        myRenderer.material.shader = shaderSpritesDefault;
+        myRenderer.color = Color.white;
     }
 }

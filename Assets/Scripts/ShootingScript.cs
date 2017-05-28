@@ -40,7 +40,7 @@ public class ShootingScript : MonoBehaviour
                     {
                         case (0):
                             {
-                                NormalMissile nm = new NormalMissile(100);
+                                NormalMissile nm = new NormalMissile(50);
                                 shootCooldown = nm.CoolDown;
                                 normalSound.GetComponent<AudioSource>().Play();
                                 break;
@@ -52,7 +52,7 @@ public class ShootingScript : MonoBehaviour
                             }
                         case (2):
                             {
-                                LaserMissile lm = new LaserMissile(130);
+                                LaserMissile lm = new LaserMissile(100);
                                 shootCooldown = lm.CoolDown;
                                 laserSound.GetComponent<AudioSource>().Play();
                                 break;

@@ -5,6 +5,12 @@ using System;
 
 public class MovingScript : MonoBehaviour
 {
+    private SpriteRenderer myRenderer;
+    private Shader shaderGUItext;
+    private Shader shaderSpritesDefault;
+    private const int whiteTime=10;
+    private int whiteCounter;
+    private bool isWhite;
 
     public float MoveForce = 2;
     private float speedDelta;
@@ -26,6 +32,12 @@ public class MovingScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        myRenderer = gameObject.GetComponent<SpriteRenderer>();
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default");
+        isWhite = false;
+        whiteCounter = 0;
+
         xMov = 0;
         maxXMov = 0.1f;
         MaxSpeed = MainScript.Player.DefaultSpeed * 3.0f;
@@ -70,6 +82,16 @@ public class MovingScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isWhite)
+        {
+            whiteCounter++;
+            if(whiteCounter>=whiteTime)
+            {
+                normalSprite();
+                isWhite = false;
+                whiteCounter = 0;
+            }
+        }
         if (!MainScript.Player.Destroyed)
         {
             MainScript.Player.FuelLevel -= 0.025f;
@@ -134,13 +156,40 @@ public class MovingScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        //if (isColliding) return;
-        //isColliding = true;
-        //if (collider.tag == "Terrain" || collider.tag == "Finish" || collider.tag == "Enemy")
-        //{
-        //    flightSound.Stop();
-        //    explosionSound.Play();
-        //    MainScript.KillPlayer();
-        //}
+        if (isColliding) return;
+        isColliding = true;
+        if (collider.tag == "Terrain" || collider.tag == "Finish")
+        {
+            flightSound.Stop();
+            explosionSound.Play();
+            MainScript.KillPlayer();
+        }
+        else if (collider.tag == "Enemy")
+        {
+            MainScript.Player.CurrentHealth = MainScript.Player.CurrentHealth - 20;
+            if(MainScript.Player.CurrentHealth<=0)
+            {
+                flightSound.Stop();
+                explosionSound.Play();
+                MainScript.KillPlayer();
+            }
+            else
+            {
+                whiteSprite();
+                isWhite = true;
+            }
+        }
+    }
+
+    void whiteSprite()
+    {
+        myRenderer.material.shader = shaderGUItext;
+        myRenderer.color = Color.white;
+    }
+
+    void normalSprite()
+    {
+        myRenderer.material.shader = shaderSpritesDefault;
+        myRenderer.color = Color.white;
     }
 }

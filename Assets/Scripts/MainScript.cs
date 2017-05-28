@@ -26,7 +26,7 @@ public class MainScript : MonoBehaviour
         flashingCounter = 0;
         orgColor = Camera.main.backgroundColor;
 
-        Player = new Player(this.GetComponent<Rigidbody2D>());
+        Player = new Player(this.GetComponent<Rigidbody2D>(),100);
         Player.UpdateBoxCollider();
         missiles = new List<Missile>();
         enemies = new List<Enemy>();
@@ -104,6 +104,9 @@ public class MainScript : MonoBehaviour
         Player.Lives -= 1;
         var player = GameObject.Find("Player");
         player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/Explosions/playerExplosion", typeof(Sprite)) as Sprite;
+        GameObject Explosion = GameObject.Instantiate(Resources.Load("Prefabs/PlayerExplosionPrefab", typeof(GameObject))) as GameObject;
+        Explosion.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        Destroy(Explosion, 1.0f);
         if (Player.Lives >= 0)
         {
             GameObject pressStart = GameObject.Instantiate(Resources.Load("Prefabs/PressStart", typeof(GameObject))) as GameObject;

@@ -17,8 +17,10 @@ namespace Assets
         private int points;
         private int level;
         private int choosenMissile;
+        private float maxHealth;
+        private float currentHealth;
 
-        public Player(Rigidbody2D playerBody)
+        public Player(Rigidbody2D playerBody,float maxHealth)
         {
             this.playerBody = playerBody;
             fuelLevel = 100;
@@ -29,6 +31,8 @@ namespace Assets
             points = 0;
             level = 1;
             choosenMissile = 0;
+            this.maxHealth = maxHealth;
+            currentHealth = maxHealth;
         }
 
         internal void UpdateBoxCollider()
@@ -139,6 +143,36 @@ namespace Assets
                 }else
                 {
                     choosenMissile = 0;
+                }
+            }
+        }
+
+        public float MaxHealth
+        {
+            get
+            {
+                return maxHealth;
+            }
+            set
+            {
+                maxHealth = value;
+            }
+        }
+
+        public float CurrentHealth
+        {
+            get
+            {
+                return currentHealth;
+            }
+            set
+            {
+                if (value > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }else
+                {
+                    currentHealth = value;
                 }
             }
         }
