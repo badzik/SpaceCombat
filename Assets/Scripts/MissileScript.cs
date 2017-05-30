@@ -27,7 +27,7 @@ public class MissileScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Terrain" || collider.tag == "Finish")
+        if ((collider.tag == "Terrain" || collider.tag == "Finish" ) && gameObject.name != "RocketExplosionPrefab(Clone)")
         {
             MainScript.missiles.Remove(MainScript.missiles.Find(x => x.GameObject.Equals(gameObject)));
             Destroy(gameObject);
@@ -43,6 +43,18 @@ public class MissileScript : MonoBehaviour
         if (missilie.GameObject.name == "LaserMissilePrefab(Clone)")
         {
             //probably lasser don't get more options but...
+        }
+        if (missilie.GameObject.name == "RocketMissilePrefab(Clone)")
+        {
+            RocketExplosion re = new RocketExplosion(250);
+            re.GameObject.transform.position = new Vector2(missilie.GameObject.transform.position.x, missilie.GameObject.transform.position.y);
+            MainScript.missiles.Remove(missilie);
+            Destroy(missilie.GameObject);
+        }
+        if (missilie.GameObject.name == "RocketExplosionPrefab(Clone)")
+        {
+            Destroy(missilie.GameObject, 2.5f);
+            MainScript.missiles.Remove(missilie);
         }
     }
 }

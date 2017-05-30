@@ -10,12 +10,13 @@ public class EnemyScript : MonoBehaviour
     private const int whiteTime = 5;
     private int whiteCounter;
     private bool isWhite;
-
+    private GameObject playerHit;
 
     int probability;
     // Use this for initialization
     void Start()
     {
+        playerHit = GameObject.Instantiate(Resources.Load("Prefabs/PlayerHitSoundPrefab", typeof(GameObject))) as GameObject;
         myRenderer = gameObject.GetComponent<SpriteRenderer>();
         shaderGUItext = Shader.Find("GUI/Text Shader");
         shaderSpritesDefault = Shader.Find("Sprites/Default");
@@ -96,6 +97,10 @@ public class EnemyScript : MonoBehaviour
             Enemy enemy = MainScript.enemies.Find(x => x.GameObject.Equals(gameObject));
             if (collider.tag == "Player")
             {
+                if(MainScript.Player.CurrentHealth >= 1)
+                {
+                    playerHit.GetComponent<AudioSource>().Play();
+                }
                 enemy.Health = 0f;
             }
             else
