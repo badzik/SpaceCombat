@@ -25,7 +25,7 @@ public class MainScript : MonoBehaviour
     {
         flashingCounter = 0;
         orgColor = Camera.main.backgroundColor;
-
+        GameObject.Find("MobileJoystick").GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/9, Screen.width / 9);
         Player = new Player(this.GetComponent<Rigidbody2D>(),100);
         Player.UpdateBoxCollider();
         missiles = new List<Missile>();
@@ -34,62 +34,62 @@ public class MainScript : MonoBehaviour
         if (PlayerPrefs.HasKey("Lives")) Player.Lives = PlayerPrefs.GetInt("Lives");
         if (PlayerPrefs.HasKey("Score")) Player.Points = PlayerPrefs.GetInt("Score");
         if (PlayerPrefs.HasKey("Level")) Player.Level = PlayerPrefs.GetInt("Level");
-        //if (Player.Points == 0 && Player.Lives == 3)
-        //{
-        //    firstStart = GameObject.Instantiate(Resources.Load("Prefabs/PressStart", typeof(GameObject))) as GameObject;
-        //    firstStart.transform.position = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + 0.17f);
-        //    Time.timeScale = 0;
-        //    AudioListener.pause = true;
-        //    start = true;
-        //}
-        //AdjustLives();
+        if (Player.Points == 0 && Player.Lives == 3)
+        {
+            firstStart = GameObject.Instantiate(Resources.Load("Prefabs/PressStart", typeof(GameObject))) as GameObject;
+            firstStart.transform.position = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + 0.17f);
+            Time.timeScale = 0;
+            AudioListener.pause = true;
+            start = true;
+        }
+        AdjustLives();
     }
 
 
     void FixedUpdate()
     {
         GameObject.FindGameObjectWithTag("Score").GetComponent<Text>().text = Player.Points.ToString();
-        //if (BridgeScript.bridgeDestroyed)
-        //{
-        //    if (flashingCounter <= flashingTime)
-        //    {
-        //        if (flashingCounter % 3 == 0)
-        //        {
-        //            Camera.main.backgroundColor = Color.red;
-        //        }
-        //        else
-        //        {
-        //            Camera.main.backgroundColor = orgColor;
-        //        }
-        //        flashingCounter++;
-        //    }
-        //    else
-        //    {
-        //        Camera.main.backgroundColor = orgColor;
-        //        BridgeScript.bridgeDestroyed = false;
-        //        flashingCounter = 0;
-        //    }
-        //}
+        if (BridgeScript.bridgeDestroyed)
+        {
+            if (flashingCounter <= flashingTime)
+            {
+                if (flashingCounter % 3 == 0)
+                {
+                    Camera.main.backgroundColor = Color.red;
+                }
+                else
+                {
+                    Camera.main.backgroundColor = orgColor;
+                }
+                flashingCounter++;
+            }
+            else
+            {
+                Camera.main.backgroundColor = orgColor;
+                BridgeScript.bridgeDestroyed = false;
+                flashingCounter = 0;
+            }
+        }
     }
 
     void Update()
     {
-        //if (Input.GetButtonDown("Fire1") && start)
-        //{
-        //    Destroy(firstStart);
-        //    Time.timeScale = 1;
-        //    AudioListener.pause = false;
-        //    start = false;
-        //}
-        //if (Player.Destroyed)
-        //{
-        //    if (Input.GetButtonDown("Fire1"))
-        //    {
-        //        if (Player.Lives >= 0) ResetLevel();
-        //        else 
-        //            ResetGame();
-        //    }
-        //}
+        if (Input.GetButtonDown("Fire1") && start)
+        {
+            Destroy(firstStart);
+            Time.timeScale = 1;
+            AudioListener.pause = false;
+            start = false;
+        }
+        if (Player.Destroyed)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (Player.Lives >= 0) ResetLevel();
+                else
+                    ResetGame();
+            }
+        }
     }
 
     void OnApplicationQuit()

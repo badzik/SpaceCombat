@@ -167,7 +167,7 @@ public class MovingScript : MonoBehaviour
         else if (collider.tag == "Enemy")
         {
             MainScript.Player.CurrentHealth = MainScript.Player.CurrentHealth - 20;
-            if(MainScript.Player.CurrentHealth<=0)
+            if (MainScript.Player.CurrentHealth <= 0)
             {
                 flightSound.Stop();
                 explosionSound.Play();
