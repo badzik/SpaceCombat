@@ -25,7 +25,6 @@ public class MainScript : MonoBehaviour
     {
         flashingCounter = 0;
         orgColor = Camera.main.backgroundColor;
-        GameObject.Find("MobileJoystick").GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/9, Screen.width / 9);
         Player = new Player(this.GetComponent<Rigidbody2D>(),100);
         Player.UpdateBoxCollider();
         missiles = new List<Missile>();

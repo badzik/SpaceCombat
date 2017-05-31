@@ -8,7 +8,7 @@ public class MovingScript : MonoBehaviour
     private SpriteRenderer myRenderer;
     private Shader shaderGUItext;
     private Shader shaderSpritesDefault;
-    private const int whiteTime=10;
+    private const int whiteTime = 10;
     private int whiteCounter;
     private bool isWhite;
 
@@ -26,6 +26,9 @@ public class MovingScript : MonoBehaviour
     AudioSource alert;
     bool isColliding;
     static bool wasPlayed = false;
+
+    public LeftJoystick leftJoystick;
+    private Vector3 leftJoystickInput;
 
     float xMov;
     float maxXMov;
@@ -85,7 +88,7 @@ public class MovingScript : MonoBehaviour
         if (isWhite)
         {
             whiteCounter++;
-            if(whiteCounter>=whiteTime)
+            if (whiteCounter >= whiteTime)
             {
                 normalSprite();
                 isWhite = false;
@@ -95,8 +98,13 @@ public class MovingScript : MonoBehaviour
         if (!MainScript.Player.Destroyed)
         {
             MainScript.Player.FuelLevel -= 0.025f;
-            Vector2 moveVec = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), 0) * MoveForce;
-            Vector2 speedVec = new Vector2(0, CrossPlatformInputManager.GetAxis("Vertical"));
+            leftJoystickInput = leftJoystick.GetInputDirection();
+            //Vector2 moveVec = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), 0) * MoveForce;
+            //Vector2 speedVec = new Vector2(0, CrossPlatformInputManager.GetAxis("Vertical"));
+
+            Vector2 moveVec = leftJoystickInput * MoveForce;
+            Vector2 speedVec = leftJoystickInput;
+
             speedDelta = speedVec.y / 1000.0f;
             if (moveVec.x > 0)
             {
