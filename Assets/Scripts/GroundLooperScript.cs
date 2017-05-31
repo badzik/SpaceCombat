@@ -127,7 +127,7 @@ public class GroundLooperScript : MonoBehaviour
 
             if (i > 1) generateEnemiesOrFuel(currentLevel, i, boxPosition.x, posy, diffx);
 
-            if (random.Next(0, 1) == 0)
+            if (random.Next(0, 2) == 0)
             {
                 if (i > 1 && (currentLevel[i][0] >= 3 || currentLevel[i][1] != 0)) drawRocks(currentLevel[i][0], currentLevel[i][1], boxPosition.x, posy, diffx);
             }
