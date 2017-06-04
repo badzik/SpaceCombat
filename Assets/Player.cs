@@ -19,6 +19,7 @@ namespace Assets
         private int choosenMissile;
         private float maxHealth;
         private float currentHealth;
+        private int crystalPoints;
 
         public Player(Rigidbody2D playerBody,float maxHealth)
         {
@@ -29,6 +30,7 @@ namespace Assets
             actualSpeed = defaultSpeed;
             destroyed = false;
             points = 0;
+            crystalPoints = 0;
             level = 1;
             choosenMissile = 0;
             this.maxHealth = maxHealth;
@@ -114,6 +116,19 @@ namespace Assets
             set
             {
                 points = value;
+            }
+        }
+
+
+        public int CrystalPoints
+        {
+            get
+            {
+                return crystalPoints;
+            }
+            set
+            {
+                crystalPoints = value;
             }
         }
 

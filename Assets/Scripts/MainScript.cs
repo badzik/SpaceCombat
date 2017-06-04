@@ -13,6 +13,7 @@ public class MainScript : MonoBehaviour
     public static List<Missile> missiles;
     public static List<Enemy> enemies;
     public static List<FuelTank> fuelTanks;
+    public static List<Crystal> crystals;
     public static bool Init = false;
     public static bool start = true;
 
@@ -30,8 +31,10 @@ public class MainScript : MonoBehaviour
         missiles = new List<Missile>();
         enemies = new List<Enemy>();
         fuelTanks = new List<FuelTank>();
+        crystals = new List<Crystal>();
         if (PlayerPrefs.HasKey("Lives")) Player.Lives = PlayerPrefs.GetInt("Lives");
         if (PlayerPrefs.HasKey("Score")) Player.Points = PlayerPrefs.GetInt("Score");
+        if (PlayerPrefs.HasKey("Crystal")) Player.CrystalPoints = PlayerPrefs.GetInt("Crystal");
         if (PlayerPrefs.HasKey("Level")) Player.Level = PlayerPrefs.GetInt("Level");
         if (Player.Points == 0 && Player.Lives == 3)
         {
@@ -137,6 +140,7 @@ public class MainScript : MonoBehaviour
     public void ResetLevel()
     {
         PlayerPrefs.SetInt("Score", Player.Points);
+        PlayerPrefs.SetInt("Crystal", Player.CrystalPoints);
         PlayerPrefs.SetInt("Lives", Player.Lives);
         PlayerPrefs.SetInt("Level", Player.Level);
         SceneManager.LoadScene("gameplay");

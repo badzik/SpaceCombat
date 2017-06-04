@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     class InterfaceScript : MonoBehaviour
     {
-        static float minX = -1.4f, maxX = 1.95f;
+        static float minX = -1.95f, maxX = 1.95f;
         private GameObject fuelIndicator;
         void Start()
         {

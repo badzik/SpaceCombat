@@ -10,7 +10,7 @@ namespace Assets
     {
         public NormalMissile(float damage)
         {
-            this.CoolDown = 10;
+            this.CoolDown = 5;
             this.Damage = damage;
             this.GameObject = GameObject.Instantiate(Resources.Load("Prefabs/NormalMissilePrefab", typeof(GameObject))) as GameObject;
             this.GameObject.AddComponent<MissileScript>();
