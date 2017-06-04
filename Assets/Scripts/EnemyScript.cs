@@ -52,7 +52,7 @@ public class EnemyScript : MonoBehaviour
         {
             enemy.GameObject.GetComponent<Animator>().speed = 1;
         }
-        if (((Camera.main.transform.position.y + (Camera.main.orthographicSize) / 1.5) > gameObject.transform.position.y) && probability >= 50) //&& MainScript.Player.Level != 1
+        if (((Camera.main.transform.position.y + (Camera.main.orthographicSize) / 1.5) > gameObject.transform.position.y) && probability >= 50 && MainScript.Player.Level != 1)
         {
             if (gameObject.name == "SpacePlanePrefab(Clone)")
             {

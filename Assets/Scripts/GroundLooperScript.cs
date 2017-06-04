@@ -23,8 +23,8 @@ public class GroundLooperScript : MonoBehaviour
     {
         bridge = GameObject.Find("Bridge");
         bridge.SetActive(false);
-        int[] tempArray = { Tank.Propability, RedEnemy.Propability, SpacePlane.Propability, FuelTank.Propability };
-        propabilityArray = new int[100];
+        int[] tempArray = { Tank.Propability, RedEnemy.Propability, SpacePlane.Propability, FuelTank.Propability,Crystal.Propability };
+        propabilityArray = new int[135];
         int i = 0;
         int j = 0;
         int counter = 0;
@@ -75,7 +75,7 @@ public class GroundLooperScript : MonoBehaviour
                 collider.transform.position = pos;
                 draw(collider);
             }
-            else
+            else if(collider.tag != "Missile")
             {
                 Vector3 borderPos = collider.transform.position;
                 borderPos.y += levelSize;
@@ -125,7 +125,7 @@ public class GroundLooperScript : MonoBehaviour
             sizex = currentLevel[i][0] * diffx;
             drawGrass(posx, posy, sizex, sizey);
 
-            if (i > 1) generateEnemiesOrFuel(currentLevel, i, boxPosition.x, posy, diffx);
+            if (i > 1) generateEnemiesFuelOrCrystal(currentLevel, i, boxPosition.x, posy, diffx);
 
             if (random.Next(0, 2) == 0)
             {
@@ -420,7 +420,7 @@ public class GroundLooperScript : MonoBehaviour
         }
     }
 
-    private void generateEnemiesOrFuel(int[][] lvl, int current, float posx, float posy, float diffx)
+    private void generateEnemiesFuelOrCrystal(int[][] lvl, int current, float posx, float posy, float diffx)
     {
         //1.85f longest item size
         int propability = 3; //propability of generate item
@@ -496,15 +496,14 @@ public class GroundLooperScript : MonoBehaviour
             }
 
             //chose what type of item should be spawned
-            r = random.Next(0, 100);
+            r = random.Next(0, 135);
             c = propabilityArray[r];
-
             //statement for preventing generating tanks in tight corridors
             if (lvl[current][1] >= 9 && c == 0)
             {
                 do
                 {
-                    r = random.Next(0, 100);
+                    r = random.Next(0, 135);
                     c = propabilityArray[r];
                 } while (c == 0);
             }
@@ -512,25 +511,30 @@ public class GroundLooperScript : MonoBehaviour
             {
                 case (0):
                     {
-                        Tank tank = new Tank(100, x, y, -100);
+                        Tank tank = new Tank(90 + (MainScript.Player.Level * 10), x, y, -100);
                         break;
                     }
                 case (1):
                     {
-                        RedEnemy redEnemy = new RedEnemy(100, x, y, 250);
+                        RedEnemy redEnemy = new RedEnemy(90 + (MainScript.Player.Level * 10), x, y, 250);
                         break;
                     }
                 case (2):
                     {
                         int rSide = random.Next(-1, 2);
                         if (rSide == 0) rSide = -1;
-                        SpacePlane spacePlane = new SpacePlane(100, 13.5f * rSide, y, 500 * rSide * -1);
+                        SpacePlane spacePlane = new SpacePlane(90+(MainScript.Player.Level*10), 13.5f * rSide, y, 500 * rSide * -1);
                         break;
 
                     }
                 case (3):
                     {
                         FuelTank fueltank = new FuelTank(x, y);
+                        break;
+                    }
+                case (4):
+                    {
+                        Crystal crystal = new Crystal(x, y);
                         break;
                     }
             }
