@@ -6,9 +6,7 @@ public class ShootingScript : MonoBehaviour
 {
 
     private int shootCooldown;
-    private Rect topLeft;
-    private Rect topRight;
-    private Rect bottomRight;
+
     private GameObject normalSound;
     private GameObject rocketSound;
     private GameObject laserSound;
@@ -20,47 +18,42 @@ public class ShootingScript : MonoBehaviour
         normalSound = GameObject.Instantiate(Resources.Load("Prefabs/NormalMissileSoundPrefab", typeof(GameObject))) as GameObject;
         rocketSound= GameObject.Instantiate(Resources.Load("Prefabs/RocketMissileSoundPrefab", typeof(GameObject))) as GameObject;
         laserSound = GameObject.Instantiate(Resources.Load("Prefabs/LaserMissileSoundPrefab", typeof(GameObject))) as GameObject;
-        topLeft = new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2);
-        topRight = new Rect(Screen.width / 2, Screen.width /6, Screen.width / 2, Screen.height /4);
-        bottomRight = new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2);
+        if (MainScript.Player.RocketMissileLvl == 0) GameObject.Find("RocketShoot").SetActive(false);
+        if (MainScript.Player.LaserMissileLvl == 0) GameObject.Find("LaserShoot").SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetButtonDown("Fire1") && shootCooldown <= 0) //for keyboard shooting
-        if (Input.touchCount > 0 && shootCooldown <= 0 && !MainScript.Player.Destroyed /*&& !MainScript.start*/)
+    }
+    
+    public void ShootingHandler(int w)
+    {
+        if(shootCooldown <= 0)
         {
-            for (int i = 0; i < Input.touchCount; i++)
+            switch (w)
             {
-                var touchPos = Input.GetTouch(i).position;
-                if (Input.GetTouch(i).phase == TouchPhase.Began && (topLeft.Contains(touchPos) || topRight.Contains(touchPos) || bottomRight.Contains(touchPos)))
-                {
-                    switch(MainScript.Player.ChoosenMissile)
+                case (0):
                     {
-                        case (0):
-                            {
-                                NormalMissile nm = new NormalMissile(50);
-                                shootCooldown = nm.CoolDown;
-                                normalSound.GetComponent<AudioSource>().Play();
-                                break;
-                            }
-                        case (1):
-                            {
-                                RocketMissile rm = new RocketMissile(200);
-                                shootCooldown = rm.CoolDown;
-                                rocketSound.GetComponent<AudioSource>().Play();
-                                break;
-                            }
-                        case (2):
-                            {
-                                LaserMissile lm = new LaserMissile(100);
-                                shootCooldown = lm.CoolDown;
-                                laserSound.GetComponent<AudioSource>().Play();
-                                break;
-                            }
+                        NormalMissile nm = new NormalMissile(50);
+                        shootCooldown = nm.CoolDown;
+                        normalSound.GetComponent<AudioSource>().Play();
+                        break;
                     }
-                }
+                case (1):
+                    {
+                        RocketMissile rm = new RocketMissile(200);
+                        shootCooldown = rm.CoolDown;
+                        rocketSound.GetComponent<AudioSource>().Play();
+                        break;
+                    }
+                case (2):
+                    {
+                        LaserMissile lm = new LaserMissile(100);
+                        shootCooldown = lm.CoolDown;
+                        laserSound.GetComponent<AudioSource>().Play();
+                        break;
+                    }
             }
         }
     }
