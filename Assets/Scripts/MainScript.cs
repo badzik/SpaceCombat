@@ -24,9 +24,20 @@ public class MainScript : MonoBehaviour
 
     void Start()
     {
+        int nLvl, lLvl, rLvl, aLvl;
+        if (PlayerPrefs.HasKey("normalMissileLvl")) nLvl = PlayerPrefs.GetInt("normalMissileLvl");
+        else nLvl = 1;
+        if (PlayerPrefs.HasKey("laserMissileLvl")) lLvl = PlayerPrefs.GetInt("laserMissileLvl");
+        else lLvl = 0;
+        if (PlayerPrefs.HasKey("rocketMissileLvl")) rLvl = PlayerPrefs.GetInt("rocketMissileLvl");
+        else rLvl = 0;
+        if (PlayerPrefs.HasKey("armorLvl")) aLvl = PlayerPrefs.GetInt("armorLvl");
+        else aLvl = 1;
+
+
         flashingCounter = 0;
         orgColor = Camera.main.backgroundColor;
-        Player = new Player(this.GetComponent<Rigidbody2D>(),100);
+        Player = new Player(this.GetComponent<Rigidbody2D>(),100+(10*aLvl),nLvl,lLvl,rLvl,aLvl);
         Player.UpdateBoxCollider();
         missiles = new List<Missile>();
         enemies = new List<Enemy>();
@@ -96,7 +107,10 @@ public class MainScript : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("Lives");
+        PlayerPrefs.DeleteKey("Score");
+        PlayerPrefs.DeleteKey("Level");
+        saveData();
     }
 
     public static void KillPlayer()
@@ -140,16 +154,19 @@ public class MainScript : MonoBehaviour
     public void ResetLevel()
     {
         PlayerPrefs.SetInt("Score", Player.Points);
-        PlayerPrefs.SetInt("Crystal", Player.CrystalPoints);
         PlayerPrefs.SetInt("Lives", Player.Lives);
         PlayerPrefs.SetInt("Level", Player.Level);
+        saveData();
         SceneManager.LoadScene("gameplay");
     }
 
     public void ResetGame()
     {
         SceneManager.LoadScene("gameplay");
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("Lives");
+        PlayerPrefs.DeleteKey("Score");
+        PlayerPrefs.DeleteKey("Level");
+        saveData();
         Container.i.SavedLevel = 1;
     }
 
@@ -166,5 +183,14 @@ public class MainScript : MonoBehaviour
                 GameObject.Find("Live" + i).GetComponent<Renderer>().enabled = false;
             }
         }
+    }
+
+    private void saveData()
+    {
+        PlayerPrefs.SetInt("Crystal", Player.CrystalPoints);
+        PlayerPrefs.SetInt("normalMissileLvl", Player.NormalMissileLvl);
+        PlayerPrefs.SetInt("laserMissileLvl", Player.LaserMissileLvl);
+        PlayerPrefs.SetInt("rocketMissileLvl", Player.RocketMissileLvl);
+        PlayerPrefs.SetInt("armorLvl", Player.ArmorLvl);
     }
 }

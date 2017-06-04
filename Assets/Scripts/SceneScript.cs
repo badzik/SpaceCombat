@@ -11,6 +11,7 @@ namespace Assets
     {
         public void changeToScene(int sceneNumber)
         {
+            if (sceneNumber == 2) PlayerPrefs.SetInt("PreviousScene", 0);
             SceneManager.LoadScene(sceneNumber);    
         }
 

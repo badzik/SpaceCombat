@@ -21,7 +21,12 @@ namespace Assets
         private float currentHealth;
         private int crystalPoints;
 
-        public Player(Rigidbody2D playerBody,float maxHealth)
+        private int normalMissileLvl;
+        private int laserMissileLvl;
+        private int rocketMissileLvl;
+        private int armorLvl;
+
+        public Player(Rigidbody2D playerBody,float maxHealth,int normalMLvl, int laserLvl, int rocketLvl, int armorLvl)
         {
             this.playerBody = playerBody;
             fuelLevel = 100;
@@ -35,6 +40,10 @@ namespace Assets
             choosenMissile = 0;
             this.maxHealth = maxHealth;
             currentHealth = maxHealth;
+            this.normalMissileLvl = normalMLvl;
+            this.laserMissileLvl = laserLvl;
+            this.rocketMissileLvl = rocketLvl;
+            this.armorLvl = armorLvl;
         }
 
         internal void UpdateBoxCollider()
@@ -190,6 +199,30 @@ namespace Assets
                     currentHealth = value;
                 }
             }
+        }
+
+        public int NormalMissileLvl
+        {
+            get { return normalMissileLvl; }
+            set { normalMissileLvl = value; }
+        }
+
+        public int LaserMissileLvl
+        {
+            get { return laserMissileLvl; }
+            set { laserMissileLvl = value; }
+        }
+
+        public int RocketMissileLvl
+        {
+            get { return rocketMissileLvl; }
+            set { rocketMissileLvl = value; }
+        }
+
+        public int ArmorLvl
+        {
+            get { return armorLvl; }
+            set { armorLvl = value; }
         }
 
     }

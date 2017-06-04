@@ -20,12 +20,17 @@ public class ShopScript : MonoBehaviour {
         {
             activeKeys[i] = new bool[2];
         }
-        //TODO: Change this to read from memory
-        armorLvl = 1;
-        normalMissileLvl = 1;
-        laserLvl = 0;
-        rocketLvl = 0;
-        crystals = 2000;
+
+        if (PlayerPrefs.HasKey("normalMissileLvl")) normalMissileLvl = PlayerPrefs.GetInt("normalMissileLvl");
+        else normalMissileLvl = 1;
+        if (PlayerPrefs.HasKey("laserMissileLvl")) laserLvl = PlayerPrefs.GetInt("laserMissileLvl");
+        else laserLvl = 0;
+        if (PlayerPrefs.HasKey("rocketMissileLvl")) rocketLvl = PlayerPrefs.GetInt("rocketMissileLvl");
+        else rocketLvl = 0;
+        if (PlayerPrefs.HasKey("armorLvl")) armorLvl = PlayerPrefs.GetInt("armorLvl");
+        else armorLvl = 1;
+        if (PlayerPrefs.HasKey("Crystal")) crystals = PlayerPrefs.GetInt("Crystal");
+        else crystals = 0;
 
         tempArmorLvl = armorLvl;
         tempLaserLvl = laserLvl;
@@ -131,8 +136,11 @@ public class ShopScript : MonoBehaviour {
 
     public void Accept()
     {
-        //TODO: Save
-
+        PlayerPrefs.SetInt("Crystal", tempCrystals);
+        PlayerPrefs.SetInt("normalMissileLvl", tempNormalMissileLvl);
+        PlayerPrefs.SetInt("laserMissileLvl", tempLaserLvl);
+        PlayerPrefs.SetInt("rocketMissileLvl", tempRocketLvl);
+        PlayerPrefs.SetInt("armorLvl", tempArmorLvl);
 
         if (PlayerPrefs.HasKey("PreviousScene"))
         {
@@ -274,7 +282,7 @@ public class ShopScript : MonoBehaviour {
             GameObject.Find("ArmorMinus").GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("Sprites/Shop/bwMinus");
             activeKeys[3][0] = false;
         }
-        if (tempCrystals >= rocketMissileCost)
+        if (tempCrystals >= armorCost)
         {
             GameObject.Find("ArmorPlus").GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("Sprites/Shop/plus");
             activeKeys[3][1] = true;
