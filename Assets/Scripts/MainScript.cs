@@ -91,7 +91,10 @@ public class MainScript : MonoBehaviour
         {
             Destroy(firstStart);
             Time.timeScale = 1;
-            AudioListener.pause = false;
+            if(PlayerPrefs.GetInt("isMute?")!=1)
+            {
+                AudioListener.pause = false;
+            }
             start = false;
         }
         if (Player.Destroyed)
@@ -185,12 +188,13 @@ public class MainScript : MonoBehaviour
         }
     }
 
-    private void saveData()
+    public static void saveData()
     {
         PlayerPrefs.SetInt("Crystal", Player.CrystalPoints);
         PlayerPrefs.SetInt("normalMissileLvl", Player.NormalMissileLvl);
         PlayerPrefs.SetInt("laserMissileLvl", Player.LaserMissileLvl);
         PlayerPrefs.SetInt("rocketMissileLvl", Player.RocketMissileLvl);
         PlayerPrefs.SetInt("armorLvl", Player.ArmorLvl);
+        //SceneManager.LoadScene(0);
     }
 }

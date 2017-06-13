@@ -35,21 +35,21 @@ public class ShootingScript : MonoBehaviour
             {
                 case (0):
                     {
-                        NormalMissile nm = new NormalMissile(50);
+                        NormalMissile nm = new NormalMissile(50+(MainScript.Player.NormalMissileLvl*10));
                         shootCooldown = nm.CoolDown;
                         normalSound.GetComponent<AudioSource>().Play();
                         break;
                     }
                 case (1):
                     {
-                        RocketMissile rm = new RocketMissile(200);
+                        RocketMissile rm = new RocketMissile(150 + (MainScript.Player.RocketMissileLvl * 10));
                         shootCooldown = rm.CoolDown;
                         rocketSound.GetComponent<AudioSource>().Play();
                         break;
                     }
                 case (2):
                     {
-                        LaserMissile lm = new LaserMissile(100);
+                        LaserMissile lm = new LaserMissile(100 + (MainScript.Player.LaserMissileLvl * 10));
                         shootCooldown = lm.CoolDown;
                         laserSound.GetComponent<AudioSource>().Play();
                         break;

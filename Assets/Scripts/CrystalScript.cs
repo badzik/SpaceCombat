@@ -25,13 +25,17 @@ namespace Assets.Scripts
         {
             if (collider.tag == "Player")
             {
-                
                 MainScript.Player.CrystalPoints += 50;
+                MainScript.Player.Points += 50;
                 crystalSound.GetComponent<AudioSource>().Play();
                 GameObject crystalPoints = GameObject.Instantiate(Resources.Load("Prefabs/CristalPointsCanvasPrefab", typeof(GameObject))) as GameObject;
+                GameObject particles = GameObject.Instantiate(Resources.Load("Prefabs/CollectParitcles", typeof(GameObject))) as GameObject;
                 crystalPoints.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                particles.transform.position= new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                MainScript.crystals.Remove(MainScript.crystals.Find(x => x.GameObject.Equals(gameObject)));
                 Destroy(gameObject);
                 Destroy(crystalPoints, 2);
+                Destroy(particles, 3);
             }
             if (collider.tag == "Terrain")
             {

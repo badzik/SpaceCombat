@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 
-public class ShopScript : MonoBehaviour {
+public class ShopScript : MonoBehaviour
+{
 
     int armorLvl, normalMissileLvl, laserLvl, rocketLvl;
     int tempArmorLvl, tempNormalMissileLvl, tempLaserLvl, tempRocketLvl;
@@ -13,10 +14,11 @@ public class ShopScript : MonoBehaviour {
     int armorCost, normalMissileCost, laserMissileCost, rocketMissileCost;
 
     bool[][] activeKeys;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         activeKeys = new bool[4][];
-        for(int i=0;i<4;i++)
+        for (int i = 0; i < 4; i++)
         {
             activeKeys[i] = new bool[2];
         }
@@ -41,10 +43,11 @@ public class ShopScript : MonoBehaviour {
         refreshLvls();
         adjustCosts();
         adjustPlusesAndMinuses();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
     }
 
@@ -124,7 +127,7 @@ public class ShopScript : MonoBehaviour {
 
     public void Exit()
     {
-        if(PlayerPrefs.HasKey("PreviousScene"))
+        if (PlayerPrefs.HasKey("PreviousScene"))
         {
             SceneManager.LoadScene(PlayerPrefs.GetInt("PreviousScene"));
         }
@@ -144,7 +147,9 @@ public class ShopScript : MonoBehaviour {
 
         if (PlayerPrefs.HasKey("PreviousScene"))
         {
+
             SceneManager.LoadScene(PlayerPrefs.GetInt("PreviousScene"));
+
         }
         else
         {
@@ -154,7 +159,7 @@ public class ShopScript : MonoBehaviour {
 
     public void WatchAd()
     {
-        if(Advertisement.IsReady())
+        if (Advertisement.IsReady())
         {
             Advertisement.Show("", new ShowOptions() { resultCallback = handleAdResult });
         }
@@ -162,7 +167,7 @@ public class ShopScript : MonoBehaviour {
 
     private void handleAdResult(ShowResult result)
     {
-        switch(result)
+        switch (result)
         {
             case ShowResult.Finished:
                 {
@@ -194,10 +199,10 @@ public class ShopScript : MonoBehaviour {
     private void adjustCosts()
     {
         armorCost = calcNormalMissileCost(tempArmorLvl + 1);
-        normalMissileCost = calcNormalMissileCost(tempNormalMissileLvl+1);
+        normalMissileCost = calcNormalMissileCost(tempNormalMissileLvl + 1);
         laserMissileCost = calcLaserMissileCost(tempLaserLvl + 1);
         rocketMissileCost = calcRocketMissileCost(tempRocketLvl + 1);
-        GameObject.Find("NormalMissileCost").GetComponent<Text>().text = "Cost: "+normalMissileCost;
+        GameObject.Find("NormalMissileCost").GetComponent<Text>().text = "Cost: " + normalMissileCost;
         GameObject.Find("LaserMissileCost").GetComponent<Text>().text = "Cost: " + laserMissileCost;
         GameObject.Find("RocketMissileCost").GetComponent<Text>().text = "Cost: " + rocketMissileCost;
         GameObject.Find("ArmorCost").GetComponent<Text>().text = "Cost: " + armorCost;
@@ -209,7 +214,7 @@ public class ShopScript : MonoBehaviour {
         if (tempNormalMissileLvl > normalMissileLvl)
         {
             GameObject.Find("NormalMissileMinus").GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("Sprites/Shop/minus");
-            activeKeys[0][0]= true;
+            activeKeys[0][0] = true;
         }
         else
         {

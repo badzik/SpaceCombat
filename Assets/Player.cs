@@ -16,7 +16,6 @@ namespace Assets
         private bool destroyed;
         private int points;
         private int level;
-        private int choosenMissile;
         private float maxHealth;
         private float currentHealth;
         private int crystalPoints;
@@ -37,9 +36,8 @@ namespace Assets
             points = 0;
             crystalPoints = 0;
             level = 1;
-            choosenMissile = 0;
-            this.maxHealth = maxHealth;
-            currentHealth = maxHealth;
+            this.maxHealth = maxHealth+ armorLvl;
+            currentHealth = maxHealth + armorLvl;
             this.normalMissileLvl = normalMLvl;
             this.laserMissileLvl = laserLvl;
             this.rocketMissileLvl = rocketLvl;
@@ -150,24 +148,6 @@ namespace Assets
             set
             {
                 level = value;
-            }
-        }
-
-        public int ChoosenMissile
-        {
-            get
-            {
-                return choosenMissile;
-            }
-            set
-            {
-                if(value>=0 && value<3)
-                {
-                    choosenMissile = value;
-                }else
-                {
-                    choosenMissile = 0;
-                }
             }
         }
 

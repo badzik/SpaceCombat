@@ -27,10 +27,19 @@ public class MissileScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if ((collider.tag == "Terrain" || collider.tag == "Finish" ) && gameObject.name != "RocketExplosionPrefab(Clone)")
+        if ((collider.tag == "Terrain" || collider.tag == "Finish" ))
         {
-            MainScript.missiles.Remove(MainScript.missiles.Find(x => x.GameObject.Equals(gameObject)));
-            Destroy(gameObject);
+            if (gameObject.name == "RocketMissilePrefab(Clone)" || gameObject.name =="RocketExplosionPrefab(Clone)")
+            {
+                var missile = MainScript.missiles.Find(x => x.GameObject == gameObject);
+                CheckTypeOfMissile(ref missile);
+            }
+            else
+            {
+                MainScript.missiles.Remove(MainScript.missiles.Find(x => x.GameObject.Equals(gameObject)));
+                Destroy(gameObject);
+            }
+
         }
     }
     public static void CheckTypeOfMissile(ref Missile missilie)

@@ -24,7 +24,7 @@ public class GroundLooperScript : MonoBehaviour
         bridge = GameObject.Find("Bridge");
         bridge.SetActive(false);
         int[] tempArray = { Tank.Propability, RedEnemy.Propability, SpacePlane.Propability, FuelTank.Propability,Crystal.Propability };
-        propabilityArray = new int[135];
+        propabilityArray = new int[115];
         int i = 0;
         int j = 0;
         int counter = 0;
@@ -67,7 +67,7 @@ public class GroundLooperScript : MonoBehaviour
     {
         if (collider.tag != "Terrain")
         {
-            if (collider.tag != "Finish" && collider.tag != "Missile")
+            if (collider.tag != "Finish" && collider.tag != "Missile" && collider.tag!="Crystal")
             {
                 float heightofBGObject = ((BoxCollider2D)collider).size.y;
                 Vector3 pos = collider.transform.position;
@@ -75,13 +75,12 @@ public class GroundLooperScript : MonoBehaviour
                 collider.transform.position = pos;
                 draw(collider);
             }
-            else if(collider.tag != "Missile")
+            else if(collider.tag != "Missile" && collider.tag != "Crystal")
             {
                 Vector3 borderPos = collider.transform.position;
                 borderPos.y += levelSize;
                 collider.transform.position = borderPos;
                 bridge.SetActive(true);
-
             }
         }
         else
@@ -496,14 +495,14 @@ public class GroundLooperScript : MonoBehaviour
             }
 
             //chose what type of item should be spawned
-            r = random.Next(0, 135);
+            r = random.Next(0, 115);
             c = propabilityArray[r];
             //statement for preventing generating tanks in tight corridors
             if (lvl[current][1] >= 9 && c == 0)
             {
                 do
                 {
-                    r = random.Next(0, 135);
+                    r = random.Next(0, 115);
                     c = propabilityArray[r];
                 } while (c == 0);
             }
@@ -516,7 +515,7 @@ public class GroundLooperScript : MonoBehaviour
                     }
                 case (1):
                     {
-                        RedEnemy redEnemy = new RedEnemy(90 + (MainScript.Player.Level * 10), x, y, 250);
+                        RedEnemy redEnemy = new RedEnemy(90 + (MainScript.Player.Level * 10), x, y, 175);
                         break;
                     }
                 case (2):

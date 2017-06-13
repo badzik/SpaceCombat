@@ -12,7 +12,7 @@ public class MovingScript : MonoBehaviour
     private int whiteCounter;
     private bool isWhite;
 
-    public float MoveForce = 2;
+    public float MoveForce = 4;
     private float speedDelta;
     public float MaxSpeed;
     public float MinSpeed;
@@ -122,7 +122,7 @@ public class MovingScript : MonoBehaviour
                 {
                     xMov = 0.0f;
                 }
-                if (xMov < maxXMov && xMov > (-maxXMov)) xMov += 0.002f * moveVec.x;
+                if (xMov < maxXMov && xMov > (-maxXMov)) xMov += 0.003f * moveVec.x;
             }
             if (speedVec.y > 0)
             {
@@ -163,15 +163,17 @@ public class MovingScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (isColliding) return;
-        isColliding = true;
+
         if (collider.tag == "Terrain" || collider.tag == "Finish")
         {
+            isColliding = true;
             flightSound.Stop();
             explosionSound.Play();
             MainScript.KillPlayer();
         }
         else if (collider.tag == "Enemy")
         {
+            isColliding = true;
             MainScript.Player.CurrentHealth = MainScript.Player.CurrentHealth - 20;
             if (MainScript.Player.CurrentHealth <= 0)
             {

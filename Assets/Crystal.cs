@@ -9,7 +9,7 @@ namespace Assets
     public class Crystal
     {
         private GameObject gameObject;
-        public static int Propability = 35;
+        public static int Propability = 15;
         public Crystal(float x, float y)
         {
             this.GameObject = GameObject.Instantiate(Resources.Load("Prefabs/CrystalPrefab", typeof(GameObject))) as GameObject;
